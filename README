@@ -1,5 +1,15 @@
+JSON-RPC-Socket over many types of socket (TCP, WebSocket, HTTP).
+===
+
+To build:
+
+	NAN
+
+To run the tests:
+
+    NAN
 
 
-
-
-dsfsdf
+Resources that are been used.
+---
+  - [nodejs.org](http://nodejs.org/)
