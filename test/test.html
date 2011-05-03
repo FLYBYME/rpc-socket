@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset=utf-8 />
+		<meta name="viewport" content="width=620" />
+		<title>HTML5 Demo: File API</title>
+		<body>
+			<section id="wrapper">
+				<header>
+					<h1>File API</h1>
+				</header>
+				<style>
+#holder {
+	border: 10px dashed #ccc;
+	width: 300px;
+	height: 300px;
+	margin: 20px auto;
+}
+#holder.hover {
+	border: 10px dashed #333;
+}
+				</style>
+				<article>
+					<div id="holder">
+					</div>
+					<p id="status">
+						File API &amp; FileReader API not supported
+					</p>
+					<p id="link">
+						Your link will show here.
+					</p>
+					<p>
+						Drag an image from your desktop on to the drop zone above to see the browser read the contents of the file and use it as the background - without uploading the file to any servers.
+					</p>
+				</article>
+				<script>
+					window.onload = function() {
+						var holder = document.getElementById('holder'),
+						state = document.getElementById('status');
+
+						if (typeof window.FileReader === 'undefined') {
+							state.className = 'fail';
+						} else {
+							state.className = 'success';
+							state.innerHTML = 'File API & FileReader available';
+						}
+						function uploadFile(file) {
+							var fd = new FormData();
+							console.log(file);
+							fd.append("fileToUpload", file);
+							var xhr = new XMLHttpRequest();
+							xhr.upload.addEventListener("progress", uploadProgress, false);
+							xhr.addEventListener("load", uploadComplete, false);
+							xhr.addEventListener("error", uploadFailed, false);
+							xhr.addEventListener("abort", uploadCanceled, false);
+							xhr.open("POST", file.fileName);
+							xhr.send(fd);
+							document.getElementById('link').innerHTML = 'http://wiyc.info/files/'+file.fileName;
+						}
+
+						function uploadProgress(evt) {
+							var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+							state.innerHTML = 'Uploaded: '+ percentComplete.toString() + '%'
+						}
+
+						function uploadComplete(evt) {
+							/* This event is raised when the server send back a response */
+							alert("Upload is done. url is: ");
+						}
+
+						function uploadFailed(evt) {
+							alert("There was an error attempting to upload the file.");
+						}
+
+						function uploadCanceled(evt) {
+							alert("The upload has been canceled by the user or the browser dropped the connection.");
+						}
+
+						holder.ondragover = function () {
+							this.className = 'hover';
+							return false;
+						};
+						holder.ondragend = function () {
+							this.className = '';
+							return false;
+						};
+						holder.ondrop = function (e) {
+							this.className = '';
+							e.preventDefault();
+
+							var file = e.dataTransfer.files[0];
+							uploadFile(file)
+
+							//return false;
+						};
+					}
+				</script>
+		</body>
+</html> 
