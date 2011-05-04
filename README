@@ -13,3 +13,21 @@ To run the tests:
 Resources that are been used.
 ---
   - [nodejs.org](http://nodejs.org/)
+
+
+## What a node might look like.
+
+    	var node = {
+			name : 'bobsNode',
+			conn : [ {
+				ip : '192.168.0.123',
+				port : 43555,
+				type : 'websocket'
+			}, {
+				ip : '192.168.0.123',
+				port : 34434,
+				type : 'http'
+			} ],
+			clients : [ 'jim', 'frank' ],
+			nodes : [ 'jame', 'joe' ]
+		}
