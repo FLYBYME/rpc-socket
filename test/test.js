@@ -1,57 +1,21 @@
-var holder = document.getElementById('holder'),
-state = document.getElementById('status');
+var net = require('net');
 
-if (typeof window.FileReader === 'undefined') {
-	state.className = 'fail';
-} else {
-	state.className = 'success';
-	state.innerHTML = 'File API & FileReader available';
-}
-function uploadFile(file) {
-	var fd = new FormData();
-	console.log(file);
-	fd.append("fileToUpload", file);
-	var xhr = new XMLHttpRequest();
-	xhr.upload.addEventListener("progress", uploadProgress, false);
-	xhr.addEventListener("load", uploadComplete, false);
-	xhr.addEventListener("error", uploadFailed, false);
-	xhr.addEventListener("abort", uploadCanceled, false);
-	xhr.open("POST", file.fileName);
-	xhr.send(fd);
-}
+var http = require('http');
 
-function uploadProgress(evt) {
-	var percentComplete = Math.round(evt.loaded * 100 / evt.total);
-	console.log(percentComplete.toString() + '%')
-}
+var events = require('events');
 
-function uploadComplete(evt) {
-	/* This event is raised when the server send back a response */
-	alert(evt.target.responseText);
-}
+var util = require('util');
 
-function uploadFailed(evt) {
-	alert("There was an error attempting to upload the file.");
-}
+var Client = exports.Client = function(port, host, type, options) {
+	events.EventEmitter.call(this);
+	this.a = true;
+	this.on('test', function() {
+		console.log(this)
+	})
 
-function uploadCanceled(evt) {
-	alert("The upload has been canceled by the user or the browser dropped the connection.");
-}
-
-holder.ondragover = function () {
-	this.className = 'hover';
-	return false;
+	return this;
 };
-holder.ondragend = function () {
-	this.className = '';
-	return false;
-};
-holder.ondrop = function (e) {
-	this.className = '';
-	e.preventDefault();
 
-	var file = e.dataTransfer.files[0];
-	uploadFile(file)
-
-	return false;
-};
+// So will act like an event emitter
+util.inherits(Client, events.EventEmitter);
+(new Client).emit('test')
