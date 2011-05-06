@@ -1,6 +1,8 @@
+var net = require('net');
 
+var server = net.createServer(function (socket) {
+  socket.write("Echo server\r\n");
+  socket.pipe(socket);
+});
 
-var rpc = require('./lib/node');
-
-var a = new rpc('name' ,'socket', '192.168.0.165', 8000)
-console.log(a);
+server.listen(80);
