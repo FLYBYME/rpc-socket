@@ -1,8 +1,8 @@
-var net = require('net');
+var http = require('http');
 
-var server = net.createServer(function (socket) {
-  socket.write("Echo server\r\n");
-  socket.pipe(socket);
-});
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World from Duostack!\n');
+}).listen(8124, "127.0.0.1");
 
-server.listen(80);
+console.log('Server running at http://127.0.0.1:8124/');
