@@ -19,3 +19,10 @@ var Client = exports.Client = function(port, host, type, options) {
 // So will act like an event emitter
 util.inherits(Client, events.EventEmitter);
 (new Client).emit('test')
+
+module.exports = function() {
+	return 'main'
+}
+module.exports.info = {
+	test : ''
+}
