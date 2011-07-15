@@ -275,6 +275,8 @@ var Client = exports.Client = function(hosts, name, options) {
 	// is the socket open?
 	this._isOpen = false;
 	this.sockets = {};
+	
+	
 	this.on('socket', function(socket) {
 
 		if (!self.sockets.hasOwnProperty(socket.__ID)) {

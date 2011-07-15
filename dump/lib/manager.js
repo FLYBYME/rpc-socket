@@ -70,7 +70,7 @@ var Manager = exports.Manager = function() {
 	this.on('unWrap', this.unWrap).on('wrap', this.wrap).on('rpc', this._rpc);
 	this.build();
 
-	var s = this.types.client.ws(80, 'echo.websocket.org');
+	//var s = this.types.client.ws(80, 'echo.websocket.org');
 
 };
 
@@ -111,7 +111,7 @@ Manager.prototype.build = function() {
 	var server = this.types.server = new connections.Server([], 'someGreatName!', {});
 	var self = this;
 	setInterval(function timmer(){
-		console.log('asd')
+		console.log(self)
 	}, 1000);
 	server.on('manager', function(id, data) {
 		self.emit('unWrap', 'server', id, data);
