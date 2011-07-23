@@ -6,15 +6,30 @@ var util = require('util');
 
 var events = require('events');
 
+var Rpc = require('./rpc');
+
 var fs = require('fs');
+
 var path = require('path');
+
 var join = path.join;
+
 var basename = path.basename;
+
 var normalize = path.normalize;
+
 var utils = require('./utils-http');
+
+var keyGen = require('./utils').keyGen;
+
 var Buffer = require('buffer').Buffer;
+
 var parse = require('url').parse;
+
 var mime = require('./mime');
+
+var frontEndSocket = require('./frontend-socket');
+
 var fn = function() {
 	console.log(arguments)
 }
@@ -25,105 +40,63 @@ var Server = module.exports = function(port, host) {
 	// config info
 	this.port = port;
 	this.host = host;
+
+	this.hadSocket = true;
+	this.isOpen = false;
+
 	this.server;
-	this.io;
+	this.socket;
 	this.root = '/';
 	this.pathKeys = [];
 	this.pathInfo = [];
-	this.setRoot('/root/Desktop/Sencha-demo')
-	this.addPathKey('ajax', function() {
-		console.log('addPathKey')
-	})
+	this.rpc = new Rpc;
 
 	this.build()
+	//this.setupRpc()
 	return this
 };
-
 // So will act like an event emitter
 util.inherits(Server, events.EventEmitter);
 
 Server.prototype.setRoot = function(val) {
 	this.root = val;
-}
-Server.prototype.addPathKey = function(path, callBack) {
-	var built = {
-		path : path,
-		callBack : callBack
-	}
+};
 
-	var index = this.pathKeys.indexOf(built);
-
-	this.pathKeys.push(path)
-	this.pathInfo.push(built)
-
-}
-Server.prototype.addSocket = function() {
-	var io = this.io = require('socket.io').listen(this.server);
-
-	io.sockets.on('connection', function(socket) {
-		socket.emit('news', {
-			hello : 'world'
-		});
-		socket.on('my other event', function(data) {
-			console.log(data);
-		}).on('userinfosave', function(data) {
-			console.log(data);
-		}).on('rest users info', function(data) {
-			data.server = true;
-			socket.emit('rest users info', data)
-		});
+Server.prototype.connect = function() {
+	var self = this;
+	this.server.listen(this.port, this.host, function() {
+		self.isOpen = true;
+		self.emit('open', self.server);
 	});
-
-}
+};
+Server.prototype.addWs = function() {
+	var self = this;
+	this.socket = new frontEndSocket(this.server).on('open', function(server) {
+		self.emit('close', server);
+	}).on('socket', function(socket) {
+		self.emit('socket', socket);
+	}).on('close', function(server) {
+		self.emit('close', server);
+	});
+};
 Server.prototype.build = function() {
 
 	var self = this;
 
 	var server = this.server = http.createServer();
-	//this.addSocket()
-	server.on('request', function(request, response) {
 
-		// console.log(self)
-		send(request, response, {
+	
+
+	server.on('request', function(request, response) {
+		self.send(request, response, {
 			path : parse(request.url).pathname,
 			root : self.root
-		})
+		});
 	}).on('close', function() {
 		self.emit('close', server);
-	})
-
-	server.listen(this.port, this.host, function() {
-		self.emit('open', server);
 	});
-
 };
-
-Server.prototype.socketClose = function() {
-	var self = this;
-
-};
-
-function invalidRange(res) {
-	var body = 'Requested Range Not Satisfiable';
-	res.setHeader('Content-Type', 'text/plain');
-	res.setHeader('Content-Length', body.length);
-	res.statusCode = 416;
-	res.end(body);
-}
-
-/**
- * Attempt to tranfer the requseted file to `res`.
- * 
- * @param {ServerRequest}
- * @param {ServerResponse}
- * @param {Function}
- *            next
- * @param {Object}
- *            options
- * @api private
- */
-
-var send = exports.send = function(req, res, options) {
+Server.prototype.send  = function(req, res, options) {
 	options = options || {};
 	if (!options.path)
 		throw new Error('path required');
@@ -226,9 +199,17 @@ var send = exports.send = function(req, res, options) {
 				done || fn(err);
 				done = true
 			}
+
 			req.on('close', callback);
 			req.socket.on('error', callback);
 			stream.on('end', callback);
 		}
 	});
 };
+function invalidRange(res) {
+	var body = 'Requested Range Not Satisfiable';
+	res.setHeader('Content-Type', 'text/plain');
+	res.setHeader('Content-Length', body.length);
+	res.statusCode = 416;
+	res.end(body);
+}

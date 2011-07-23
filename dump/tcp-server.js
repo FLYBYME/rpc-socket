@@ -28,15 +28,20 @@ Server.prototype.build = function() {
 
 	server.on("connection", function(socket) {
 
-		self.emit('socket', new Socket(socket));
+		self.emit('socket', socket);
 	});
 	server.on("close", function() {
 		self.emit('close', server);
 	});
 
-	server.listen(this.port);
 };
 
+Server.prototype.connect = function() {
+	var self = this;
+	this.server.listen(this.port, this.host, function() {
+		self.emit('open', server);
+	});
+}
 Server.prototype.socketClose = function() {
 	var self = this;
 
