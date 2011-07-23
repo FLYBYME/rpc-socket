@@ -6,10 +6,12 @@ var manager = new Manager//init the manager.
 console.log(manager)
 
 //setup the front end server.
-var server = manager.servers.httpServer({
+var server = manager.createServer({
 	port : 9999,
 	host : 'localhost',
-	root : '/home/bob/Sencha-Demo'
+	type : 'http',
+	root : '/home/bob/Sencha-demo',
+	hasSocket : true
 })
 
 console.log(server)
