@@ -1,0 +1,16 @@
+{
+	"name": "rpc-socket",
+	"version": "0.0.1",
+	"description": "RPC like calling over different types of sockets",
+	"keywords": ["rpc","json","socket","server","client"],
+	"author": "Tim <flybyme@wiyc.info>",
+	"bugs": {
+		"mail": "bug@wiyc.info",
+		"web": "https://github.com/FLYBYME/rpc-socket"
+	},
+	"repository": "git://github.com/FLYBYME/rpc-socket.git",
+	"engines": {
+		"node": ">=0.4.0"
+	},
+	"main": "./lib/manager"
+}
