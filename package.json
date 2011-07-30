@@ -22,6 +22,8 @@
     "node": ">=0.4.0"
   },
   "main": "./lib/manager",
-  "dependencies": {"socket.io":""},
+  "dependencies": {
+    "socket.io": ""
+  },
   "devDependencies": {}
 }
