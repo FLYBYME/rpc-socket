@@ -1,4 +1,4 @@
-var Manager = require('./lib/manager');
+var Manager = require('../lib/manager');
 
 var manager = new Manager//init the manager.
 
