@@ -38,13 +38,6 @@ Notes
 
 * Still under deployment.
 
-
-Running a Slug
---------------
-
-terminal: 
-
-	Comming soon.
 	
 Code Usage
 -----------
