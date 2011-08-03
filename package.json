@@ -1,19 +1,29 @@
 {
   "name": "rpc-socket",
-  "description": "RPC over many types of socket.",
   "version": "0.0.1",
-  "homepage": "http://rpcsocket.duostack.net/",
+  "description": "RPC like calling over different types of sockets",
+  "keywords": [
+    "rpc",
+    "json",
+    "socket",
+    "server",
+    "client"
+  ],
+  "author": "Tim <flybyme@wiyc.info>",
+  "bugs": {
+    "email": "bug@wiyc.info",
+    "url": "https://github.com/FLYBYME/rpc-socket"
+  },
   "repository": {
     "type": "git",
-    "url": "git@github.com:FLYBYME/rpc-socket.git"
-  },
-  "author": "Timothy <price.timmy@gmail.com> (http://no-de-js.blogspot.com/)",
-  "main": "lib",
-  "directories": {
-    "websocket-client": "websocket-client",
-    "websocket-server": "websocket-server"
+    "url": "git://github.com/FLYBYME/rpc-socket.git"
   },
   "engines": {
-    "node": "*"
-  }
+    "node": ">=0.4.0"
+  },
+  "main": "./lib/manager",
+  "dependencies": {
+    "socket.io": ""
+  },
+  "devDependencies": {}
 }

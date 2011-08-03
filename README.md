@@ -1,42 +1,46 @@
-JSON-RPC-Socket over many types of socket (TCP, WebSocket, HTTP).
-===
+Notice
+------
 
-So the idea behind this project is to create an easy to use JSON-RPC client and server setup.
+This is a JSON-RPC style taken off the v1.0 of the spec.
 
-To build:
+Requirements
+------------
 
-	NAN
+* Linux / Mac 
 
-To run the tests:
+Installation
+------------
 
-    NAN
+	npm install rpc-socket
+	
+Motivation
+----------
 
+* Unified: One interface for many TCP/WS sockets.
+* Fast Deployment: Turn around on project build.
+* Easy Deployment: Server clients code works the same IE:One code set.
 
-Resources that are been used.
----
-  - [nodejs.org](http://nodejs.org/)
+Supports
+--------
 
-
-## What a node might look like.
-
-	var node = {
-		name : 'bobsNode',
-		conn : [ {
-			ip : '192.168.0.123',
-			port : 43555,
-			type : 'websocket'
-		}, {
-			ip : '192.168.0.123',
-			port : 34434,
-			type : 'http'
-		} ],
-		clients : [ 'jim', 'frank' ],
-		nodes : [ 'jame', 'joe' ]
-	};
-
-## ToDo List
- - connections.Client, is almost done.
- - connections.Server, Need to rewite the code for this method.
- - rpc, IM going to rewite this module to better fit heavy events.
+* Comming soon.
 
 
+Road Map
+--------
+
+* Use of UDP sockets.
+* Mesh like routing.
+
+
+Notes
+-----
+
+* Still under deployment.
+
+	
+Code Usage
+-----------
+
+	Look in the test folder for ideas.
+	
