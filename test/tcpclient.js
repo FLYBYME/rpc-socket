@@ -1,6 +1,5 @@
-var Manager = require('../lib/manager');
+var manager = require('../lib/manager');
 
-var manager = new Manager//init the manager.
 
 //manager.load()//load the rpc modules.
 console.log(manager)

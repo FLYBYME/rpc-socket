@@ -1,9 +1,5 @@
-var Manager = require('../lib/manager');
+var manager = require('../lib/manager');
 
-var manager = new Manager//init the manager.
-
-//manager.load()//load the rpc modules.
-console.log(manager)
 
 //setup the front end server.
 var server = manager.createServer({
@@ -13,4 +9,8 @@ var server = manager.createServer({
 	request : function(req, res) {
 		//do something..
 	}
+}).on('open',function(){
+	//Do something with the sicket.
+}).on('close',function(){
+	//Do something with the sicket.
 })

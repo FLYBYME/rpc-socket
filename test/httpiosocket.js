@@ -1,9 +1,4 @@
-var Manager = require('../lib/manager');
-
-var manager = new Manager//init the manager.
-
-//manager.load()//load the rpc modules.
-console.log(manager)
+var manager = require('../lib/manager');
 
 //setup the front end server.
 var server = manager.createServer({
@@ -12,4 +7,10 @@ var server = manager.createServer({
 	type : 'http',
 	root : '/home/bob/Sencha-demo',
 	hasSocket : true
+}).on('socket',function(socket){
+	//Do something with the sicket.
+}).on('open',function(){
+	//Do something with the sicket.
+}).on('close',function(){
+	//Do something with the sicket.
 })

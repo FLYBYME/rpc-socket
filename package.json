@@ -1,6 +1,6 @@
 {
   "name": "rpc-socket",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "RPC like calling over different types of sockets",
   "keywords": [
     "rpc",
