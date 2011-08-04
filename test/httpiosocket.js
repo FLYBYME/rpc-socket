@@ -7,10 +7,4 @@ var server = manager.createServer({
 	type : 'http',
 	root : '/home/bob/Sencha-demo',
 	hasSocket : true
-}).on('socket',function(socket){
-	//Do something with the sicket.
-}).on('open',function(){
-	//Do something with the sicket.
-}).on('close',function(){
-	//Do something with the sicket.
 })
