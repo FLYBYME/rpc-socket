@@ -1,6 +1,8 @@
 var manager = require('../lib/manager')
 
+manager.on('socket', function(socket) {
 
+})
 
 var server = manager.createServer({
 	port : 9999,
@@ -8,8 +10,4 @@ var server = manager.createServer({
 	type : 'http',
 	root : '/var/www',
 	hasSocket : false
-}).on('open',function(){
-	//Do something with the sicket.
-}).on('close',function(){
-	//Do something with the sicket.
 })
