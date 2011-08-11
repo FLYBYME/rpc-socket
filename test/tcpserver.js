@@ -1,12 +1,21 @@
 var manager = require('../lib/manager');
 
-
-//manager.load()//load the rpc modules.
+// manager.load()//load the rpc modules.
 console.log(manager)
+var a = 0
+manager.on('socket', function(socket) {
 
-//setup the front end server.
+	console.log('socket count: ' + manager.socketCount + ' and vsize: ' + process.memoryUsage().vsize)
+
+	manager.rpc.call('list', [], socket, function() {
+		console.log('   - socket count: ' + manager.socketCount + ' and vsize: ' + process.memoryUsage().vsize)
+		console.log('   - rpc call went well Count: ' + a++)
+	})
+})
+// setup the front end server.
 var server = manager.createServer({
-	port : 9998,
-	host : '192.168.1.100',
+	port : 9999,
+	host : '208.53.183.73',
 	type : 'tcp'
 })
+console.log(server)

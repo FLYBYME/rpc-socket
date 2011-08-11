@@ -3,8 +3,8 @@ var manager = require('../lib/manager');
 //setup the front end server.
 var server = manager.createServer({
 	port : 9999,
-	host : '192.168.1.100',
+	host : '208.53.183.73',
 	type : 'http',
-	root : '/home/bob/Sencha-demo',
+	root : '/var/www',
 	hasSocket : true
 })
