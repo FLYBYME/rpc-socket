@@ -1,60 +1,6 @@
 #!/usr/bin/env node
-
-
-var fs = require('fs')
-var utils = require('./lib/utils')
-var Master = require('./lib/master')
-var Rpc = require('./lib/rpc')
-var Slave = require('./lib/slave')
-var Io = require('./lib/io')
-var logger = utils.logger;
-//
-
-var args = process.argv;
-//
-args.shift()
-args.shift()
-
-//
-var config = {
-
-}
-//
-for(var i = args.length - 1; i >= 0; i--) {
-	var arg = args[i].split('=')
-	var key = arg[0]
-	var val = arg[1]
-	if(key === '-config') {
-		config['config'] = val
-	}
-};
-//
-if(!(config['config'])) {
-	throw '  ERROR: Should be something like: node app -config=/path/to/config.json'
-}
-//
-fs.readFile(config['config'], function(err, data) {
-	if(err)
-		throw '  ERROR: No such file: '+config['config']+' Should be something like: node app -config=/path/to/config.json';
-	//
-	config = JSON.parse(data)
-	//
-	var type = config['type']
-	var port = config['port']
-	var host = config['host']
-	var modules = config['modules']
-	var baseDir = config['baseDir']
-	//
-	//
-	for(var i = modules.length - 1; i >= 0; i--) {
-		modules[i] = baseDir + '/' + modules[i]
-	};
-	//
-	if(type === 'master') {
-		new Master(port, host, modules)
-	} else if(type === 'slave') {
-		new Slave(port, host, modules)
-	} else if(type === 'io') {
-		new Io(port, host, modules)
-	}
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err);
 });
+var fs=require("fs"),utils=require("./lib/utils"),Master=require("./lib/master"),Rpc=require("./lib/rpc"),Slave=require("./lib/slave"),Io=require("./lib/io"),logger=utils.logger,args=process.argv;args.shift();args.shift();for(var config={},i=args.length-1;i>=0;i--){var arg=args[i].split("="),key=arg[0],val=arg[1];key==="-config"&&(config.config=val)}if(!config.config)throw"  ERROR: Should be something like: node app -config=/path/to/config.json";
+fs.readFile(config.config,function(f,g){if(f)throw"  ERROR: No such file: "+config.config+" Should be something like: node app -config=/path/to/config.json";config=JSON.parse(g);for(var c=config.type,d=config.port,e=config.host,a=config.modules,h=config.baseDir,b=a.length-1;b>=0;b--)a[b]=h+"/"+a[b];c==="master"?new Master(d,e,a):c==="slave"?new Slave(d,e,a):c==="io"&&new Io(d,e,a)});
