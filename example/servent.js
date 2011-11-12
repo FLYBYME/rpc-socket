@@ -22,7 +22,8 @@ servent.on('error', function(err) {
 	}
 });
 servent.on('rpc', function(rpc) {
-	rpc.expose('test', function() {
+
+	rpc.expose('private', function() {
 
 	})
 });
@@ -31,4 +32,7 @@ servent.on('peer', function(peer) {
 		//console.log(arguments)
 	})
 });
+servent.expose('test', function() {
+
+})
 servent.listen(port, '208.53.183.73');

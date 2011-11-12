@@ -22,6 +22,11 @@ module.exports.Io = require('./lib/io');
  *
  *
  */
+module.exports.Servent = require('./lib/servent');
+/*
+ *
+ *
+ */
 module.exports.Manager = require('./lib/manager');
 /*
  *
