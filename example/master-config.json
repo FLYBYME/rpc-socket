@@ -1,8 +1,0 @@
-{
-	"salt": "asdfsdasd",
-	"modules": ["test"],
-	"baseDir": "/home/dev/rpc-socket/example/modules",
-	"port": 8000,
-	"host": "localhost",
-	"type": "master"
-}

@@ -2,34 +2,23 @@
  *
  *
  */
-module.exports.Master = require('./lib/master');
+module.exports.Stack = require('./lib/stack');
 /*
  *
  *
  */
-module.exports.Rpc = require('./lib/rpc');
+module.exports.RpcModule = require('./lib/rpc').RpcModule;
 /*
  *
  *
  */
-module.exports.Slave = require('./lib/slave');
+module.exports.protocols = {
+	Io : require('./lib/protocols/socket.io'),
+	Process : require('./lib/protocols/process'),
+	Socket : require('./lib/protocols/socket')
+};
 /*
  *
  *
  */
-module.exports.Io = require('./lib/io');
-/*
- *
- *
- */
-module.exports.Servent = require('./lib/servent');
-/*
- *
- *
- */
-module.exports.Manager = require('./lib/manager');
-/*
- *
- *
- */
-module.exports.version = '0.0.5';
+module.exports.version = '0.0.6';
