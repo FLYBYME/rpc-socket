@@ -2,7 +2,12 @@
  *
  *
  */
-module.exports.RpcModule = require('./lib/rpc').RpcModule;
+module.exports.rpc = require('./lib/rpc');
+/*
+ *
+ *
+ */
+module.exports.Server = require('./lib/server');
 /*
  *
  *

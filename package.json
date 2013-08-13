@@ -1,6 +1,6 @@
 {
 	"name": "rpc-socket",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "RPC like calling over different types of sockets",
 	"keywords": ["rpc", "json", "socket", "server", "client"],
 	"author": "Tim <flybyme@wiyc.info>",
@@ -17,7 +17,7 @@
 	},
 	"main": "./index",
 	"dependencies": {
-		"socket.io": ""
+		"engine.io": "0.6.3"
 	},
 	"devDependencies": {}
 }
