@@ -33,7 +33,7 @@ server.rpc.expose('server', {
 
 ```
 
-## Uses the server.
+## Uses the Client.
 
 ```html
 <script src="engine.io.js"></script>
