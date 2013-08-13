@@ -3,7 +3,23 @@
 <script>
 	var rpc = new RpcModule()
 	rpc.connect('ws://localhost:8000')
-	rpc.invoke('server.test', [], function(err, result) {
-		console.log(err, result)
+	rpc.on('open', function() {
+		console.log('rpc channel is open')
 	})
+	rpc.on('close', function() {
+		console.log('rpc channel is closed')
+	})
+	rpc.auth('test', 'test', function(err, user) {
+		
+		
+		
+		
+		
+		
+		console.log(err, user)
+		rpc.invoke('server.test', [], function(err, result) {
+			console.log(err, result)
+		})
+	})
+
 </script>

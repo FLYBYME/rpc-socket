@@ -429,8 +429,13 @@
 	/***
 	 * Invoke a method on the remote peer.
 	 */
+	RpcModule.prototype.auth = function(user, pass, cb) {
+		this.invoke('auth', [user, pass], cb)
+	};
+	/***
+	 * Invoke a method on the remote peer.
+	 */
 	RpcModule.prototype.connect = function(url) {
-		var socket = eio(url);
 		var self = this
 		function rpcWrite(err, data) {
 			if (err)
@@ -441,12 +446,30 @@
 
 
 		this.write = rpcWrite
-		socket.onopen = function() {
 
-			socket.onmessage = function(data) {
-				self.requestEvent(JSON.parse(data), rpcWrite)
-			};
-		};
+		var socket = this.socket = eio(url);
+
+		socket.on('message', function(data) {
+			self.requestEvent(JSON.parse(data), rpcWrite)
+		})
+		socket.on('open', function() {
+			self.emit('open')
+		})
+		socket.on('close', function() {
+			self.emit('close')
+			rpc.write = function() {
+				throw new Error('socket is closed')
+			}
+		})
+		socket.on('error', function(error) {
+			self.emit('error', error)
+		})
+		socket.on('flush', function() {
+			self.emit('flush')
+		})
+		socket.on('drain', function() {
+			self.emit('drain')
+		})
 	};
 	window.RpcModule = RpcModule
 })();
