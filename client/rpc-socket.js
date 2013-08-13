@@ -4,7 +4,7 @@
  *
  */
 
-(function() {
+;(function() {
 	var Emitter = function() {
 		this.listiners = {};
 		this.maxListeners = 15;
@@ -433,7 +433,6 @@
 		var socket = eio(url);
 		var self = this
 		function rpcWrite(err, data) {
-			console.log(err, data)
 			if (err)
 				socket.send(JSON.stringify(err))
 			else
@@ -450,4 +449,4 @@
 		};
 	};
 	window.RpcModule = RpcModule
-})()
+})();
